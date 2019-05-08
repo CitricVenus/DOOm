@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
@@ -17,4 +18,7 @@ public class Scope {
 		g.drawImage(this.mira2,this.sX, this.sY, 50, 50, null);
 	}
 
+	public Rectangle getBounds() {
+		return new Rectangle(this.sX,this.sY,50,50);
+	}
 }
