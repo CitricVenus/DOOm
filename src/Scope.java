@@ -21,4 +21,5 @@ public class Scope {
 	public Rectangle getBounds() {
 		return new Rectangle(this.sX,this.sY,50,50);
 	}
+	
 }

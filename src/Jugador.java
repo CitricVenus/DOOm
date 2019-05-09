@@ -9,33 +9,34 @@ import javax.swing.ImageIcon;
 
 public class Jugador {
 	public int pX;
-	public Image[] jugadorDisp;
-	public Image jugador;
-	private int eX,eY;
+	public Image player,playergif,shoot;
+	public int eX,eY;
+	
 	public boolean disparo,escudo;
 	public boolean escudoAct;
-	private int contadorEsc,tiempo;
+	public int contadorEsc;
 	public Jugador() {
 		this.eX=320;
 		this.eY=450;
 		this.disparo=false;
-		this.escudoAct=false;
+		this.escudoAct=true;
 		this.pX=400;
 		this.contadorEsc=0;
-		this.tiempo=0;
-		this.jugadorDisp = new Image[2];
-		this.jugadorDisp[0] = new ImageIcon("normal.png").getImage();
-		this.jugadorDisp[1] = new ImageIcon("shoot.png").getImage();
-		this.jugador = new ImageIcon("shoot.png").getImage();
-		
+		this.playergif=new ImageIcon("player.gif").getImage();
+		this.player=new ImageIcon("normal.png").getImage();
+		this.shoot=new ImageIcon("shoot.png").getImage();
 		
 	}
 	public void pintaJugador(Graphics g) {
-		if(this.disparo) {
-			if(this.tiempo==2)this.tiempo=0;
-			g.drawImage(this.jugadorDisp[this.tiempo], this.pX-45, 500, 120, 120,null);
-		}else {
-			g.drawImage(this.jugador,this.pX-45, 500, 150, 120,null);	
+		if(disparo) {
+			g.drawImage(this.player,this.pX-45, 500, 120, 120,null);
+			g.drawImage(this.shoot,this.pX-40, 430, 110, 110,null); 
+			this.disparo=false;
+			
+			
+		}
+		else {
+			g.drawImage(this.player,this.pX-45, 500, 150, 120,null);
 		}
 		if(this.escudoAct) {
 			g.setColor(Color.GREEN);
@@ -47,10 +48,7 @@ public class Jugador {
 	public Rectangle getBounds() {
 		return new Rectangle(this.pX-35,500,50,50);
 	}
-	public void tiempos() {
-		this.tiempo++;
-		
-	}
+	
 	public void contEscudo() {
 		System.out.println("Hola");
 		if(this.escudoAct) {
@@ -60,5 +58,7 @@ public class Jugador {
 				this.contadorEsc=0;
 			}
 		}
+		
 	}
+
 }
