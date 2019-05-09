@@ -78,8 +78,11 @@ public class Controles extends JPanel implements MouseMotionListener, MouseListe
 		for(int i=0;i<this.enemigocalav.length;i++) {
 			if((this.clickX>=this.enemigocalav[i].eX)&&(this.clickX<=this.enemigocalav[i].eX+50)
 					&&(this.clickY>=this.enemigocalav[i].eY)&&(this.clickY<=this.enemigocalav[i].eY+50)) {
-				this.Hud.score=this.Hud.score+10;
-				this.enemigocalav[i].acierto=true;
+				if(!this.enemigocalav[i].acierto) {
+					this.Hud.score=this.Hud.score+10;
+					this.enemigocalav[i].acierto=true;
+				}
+				
 			}
 		}
 		

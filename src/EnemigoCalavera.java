@@ -23,7 +23,7 @@ public class EnemigoCalavera {
 		
 	}
 	public void pintaEnemigo(Graphics g) {
-		if(acierto) {
+		if(this.acierto) {
 			g.drawImage(this.blood, this.eX, this.eY,50,50, null);
 		}else {
 			g.drawImage(this.enemigo1, this.eX, this.eY, 50, 50, null);
