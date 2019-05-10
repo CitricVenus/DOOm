@@ -1,3 +1,8 @@
+//Autor 1: Erick Alfonso Montán López. A01379766
+//Autor 2: Lui Ángel Barriga Chávez. A01633169
+//Nombre de la clase: Nivel2.java
+//Fecha: 11/05/2019
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -13,10 +18,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class NIvel2 extends JPanel implements MouseMotionListener, MouseListener,KeyListener,Runnable{
-	public Image hud,map2;
+	public Image lvlscore,cara,balas,map2;
 	public int mX,mY,pX,bala,clickX,clickY,contador,nivelactual,menosenemigosdem;
 	public Thread hilo=new Thread(this);
 	public HUD Hud;
+	public MainMenu menu;
 	public Controles ctrl;
 	public EnemigoDemonio enemigodem;
 	public Scope scope;
@@ -34,7 +40,9 @@ public class NIvel2 extends JPanel implements MouseMotionListener, MouseListener
 		this.menosenemigosdem=6;
 		this.nivelactual=2;
 		this.enemigodem=new EnemigoDemonio();
-		this.hud=new ImageIcon("Hud.png").getImage();
+		this.lvlscore=new ImageIcon("lvlscor.png").getImage();
+		this.cara=new ImageIcon("cara.png").getImage();
+		this.balas=new ImageIcon("balas.png").getImage();
 		this.map2=new ImageIcon("map2.jpg").getImage();
 		this.pX=400;
 		this.Hud=new HUD();
@@ -55,7 +63,10 @@ public class NIvel2 extends JPanel implements MouseMotionListener, MouseListener
 		this.Hud.nivel=2;
 		g.drawImage(this.map2, 0, 0, this.getWidth(),this.getHeight(),this);
 		this.jugador.pintaJugador(g);
-		g.drawImage(this.hud,1, 610, 800, 90,this );
+		g.drawImage(this.lvlscore,1, 610, 400, 90,this );
+		g.drawImage(this.cara,400, 610, 200, 90,this );
+		g.drawImage(this.balas,600, 610, 200, 90,this );
+	
 		g.setFont( new Font( "Tahoma", Font.BOLD, 46 ) );
 		for(int i=0;i<this.enemigosdem.length;i++) {
 			this.enemigosdem[i].pintaEnemigoDem(g);
@@ -76,33 +87,34 @@ public class NIvel2 extends JPanel implements MouseMotionListener, MouseListener
 			this.jugador.disparo=true;
 			this.Hud.balas--;
 			this.repaint();
-			System.out.println(this.menosenemigosdem);
-		}
+			
+		
 		for(int i=0;i<this.enemigosdem.length;i++) {
 			if((this.clickX>=this.enemigosdem[i].demX)&&(this.clickX<=this.enemigosdem[i].demX+50)
 					&&(this.clickY>=this.enemigosdem[i].demY)&&(this.clickY<=this.enemigosdem[i].demY+50)) {
 					this.menosenemigosdem--;
-						if(this.Hud.balas<=0 && this.menosenemigosdem>=1) {
-						System.out.println("Game Over");
-						}
-						 if(this.Hud.balas>=0 && this.menosenemigosdem==0){
-						System.out.println("Siguiente nivel");
-						Nivel3 lvl3=new Nivel3(this.play);
-						this.play.setPanel(lvl3);
-							}
 				if(!this.enemigosdem[i].aciertodem) {
-					
-					this.Hud.score=40+this.Hud.score+15;
 					this.enemigosdem[i].aciertodem=true;
-					
+					this.Hud.score=40+this.Hud.score+15;	
 				}
-				this.repaint();
+			}
+				
 				
 			}
+		if(this.Hud.balas==0 && this.menosenemigosdem>1) {
+		
+			GameOver gameover=new GameOver(this.play);
+			this.play.setPanel(gameover);
+			}
+			if(this.Hud.balas>=0 && this.menosenemigosdem==0){
+		
+			Nivel3 lvl3=new Nivel3(this.play);
+			this.play.setPanel(lvl3);
+				}
 		}
-		
-		
+		this.repaint();
 	}
+		
 	public void mouseMoved(MouseEvent e) {
 		this.scope.sX=e.getX()-25;
 		this.scope.sY=e.getY()-25;

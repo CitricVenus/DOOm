@@ -1,3 +1,8 @@
+//Autor 1: Erick Alfonso Montán López. A01379766
+//Autor 2: Lui Ángel Barriga Chávez. A01633169
+//Nombre de la clase: Nivel3.java
+//Fecha: 11/05/2019
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -13,8 +18,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Nivel3 extends JPanel implements MouseMotionListener, MouseListener,KeyListener,Runnable{
-	public Image hud,map3;
-	public int mX,mY,pX,bala,clickX,clickY,contador,nivelactual,menosenemigosdem;
+	public Image lvlscore,cara,balas,map3;
+	public int mX,mY,pX,bala,clickX,clickY,contador,nivelactual,menosenemigosf;
 	public Thread hilo=new Thread(this);
 	public HUD Hud;
 	public Controles ctrl;
@@ -30,10 +35,12 @@ public class Nivel3 extends JPanel implements MouseMotionListener, MouseListener
 		this.play=play;
 		this.setPreferredSize(new Dimension(800,700));
 		this.scope=new Scope();
-		this.menosenemigosdem=11;
+		this.menosenemigosf=12;
 		this.nivelactual=3;
 		this.enemigof=new Enemigofuego();
-		this.hud=new ImageIcon("Hud.png").getImage();
+		this.lvlscore=new ImageIcon("lvlscor.png").getImage();
+		this.cara=new ImageIcon("cara.png").getImage();
+		this.balas=new ImageIcon("balas.png").getImage();
 		this.map3=new ImageIcon("map3.jpg").getImage();
 		this.pX=400;
 		this.Hud=new HUD();
@@ -54,7 +61,10 @@ public class Nivel3 extends JPanel implements MouseMotionListener, MouseListener
 		this.Hud.score=+this.Hud.score;
 		g.drawImage(this.map3, 0, 0, this.getWidth(),this.getHeight(),this);
 		this.jugador.pintaJugador(g);
-		g.drawImage(this.hud,1, 610, 800, 90,this );
+		g.drawImage(this.lvlscore,1, 610, 400, 90,this );
+		g.drawImage(this.cara,400, 610, 200, 90,this );
+		g.drawImage(this.balas,600, 610, 200, 90,this );
+	
 		g.setFont( new Font( "Tahoma", Font.BOLD, 46 ) );
 		for(int i=0;i<this.enemigosf.length;i++) {
 			this.enemigosf[i].pintaEnemigof(g);
@@ -75,30 +85,29 @@ public class Nivel3 extends JPanel implements MouseMotionListener, MouseListener
 			this.jugador.disparo=true;
 			this.Hud.balas--;
 			this.repaint();
-			System.out.println(this.menosenemigosdem);
-		}
+			
 		for(int i=0;i<this.enemigosf.length;i++) {
 			if((this.clickX>=this.enemigosf[i].efX)&&(this.clickX<=this.enemigosf[i].efX+50)
 					&&(this.clickY>=this.enemigosf[i].efY)&&(this.clickY<=this.enemigosf[i].efY+50)) {
-					this.menosenemigosdem--;
-						if(this.Hud.balas<=0 && this.menosenemigosdem>=1) {
-						System.out.println("Game Over");
+					this.menosenemigosf--;
+					if(!this.enemigosf[i].aciertof) {
+						
+						this.Hud.score=40+this.Hud.score+15;
+						this.enemigosf[i].aciertof=true;
 						}
-						 if(this.Hud.balas>=0 && this.menosenemigosdem==0){
-						System.out.println("Siguiente nivel");
-							}
-				if(!this.enemigosf[i].aciertof) {
-					
-					this.Hud.score=40+this.Hud.score+15;
-					this.enemigosf[i].aciertof=true;
-					
+					}
 				}
-				this.repaint();
-				
-			}
+						if(this.Hud.balas==0 && this.menosenemigosf>=1) {
+							GameOver gameover=new GameOver(this.play);
+							this.play.setPanel(gameover);
+						}
+						 if(this.Hud.balas>=0 && this.menosenemigosf==0){
+					
+						MainMenu menu=new MainMenu(this.play);
+						this.play.setPanel(menu);
+							}
 		}
-		
-		
+		this.repaint();
 	}
 	public void mouseMoved(MouseEvent e) {
 		this.scope.sX=e.getX()-25;
@@ -126,12 +135,6 @@ public class Nivel3 extends JPanel implements MouseMotionListener, MouseListener
 		 }catch (InterruptedException e) {
 				e.printStackTrace();
 		 }
-	}
-	public void siguienteNivel(){
-		
-	}
-	public void gameOver() {
-	
 	}
 	
 	@Override

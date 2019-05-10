@@ -1,3 +1,8 @@
+//Autor 1: Erick Alfonso Montán López. A01379766
+//Autor 2: Lui Ángel Barriga Chávez. A01633169
+//Nombre de la clase: Scope.java
+//Fecha: 11/05/2019
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -9,17 +14,13 @@ public class Scope {
 	public Image mira,mira2,mira3;
 
 	public Scope() {
-	
-		this.mira=new ImageIcon("mira.png").getImage();
+
 		this.mira2=new ImageIcon("mira2.png").getImage();
-		this.mira3=new ImageIcon("mira3.png").getImage();
+		
 	}
 	public void pintaScope(Graphics g) {
 		g.drawImage(this.mira2,this.sX, this.sY, 50, 50, null);
 	}
 
-	public Rectangle getBounds() {
-		return new Rectangle(this.sX,this.sY,50,50);
-	}
 	
 }

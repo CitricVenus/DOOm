@@ -1,4 +1,9 @@
-	import java.awt.Graphics;
+//Autor 1: Erick Alfonso Montán López. A01379766
+//Autor 2: Lui Ángel Barriga Chávez. A01633169
+//Nombre de la clase: EnemigoDemonio.java
+//Fecha: 11/05/2019
+
+import java.awt.Graphics;
 	import java.awt.Image;
 	import java.awt.Rectangle;
 	import java.util.Random;
@@ -34,9 +39,7 @@ public class EnemigoDemonio {
 			this.moveXdem=randomicerDem(randomicerDem(10));
 			this.moveYdem=randomicerDem(randomicerDem(10));
 		}
-		public Rectangle getBoundsDem() {
-			return new Rectangle(this.demX,this.demY,50,50);
-		}
+
 		public int randomicerDem() {
 			return randomicerDem(10);
 		}

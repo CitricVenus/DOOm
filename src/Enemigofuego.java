@@ -1,3 +1,7 @@
+//Autor 1: Erick Alfonso Montán López. A01379766
+//Autor 2: Lui Ángel Barriga Chávez. A01633169
+//Nombre de la clase: EnemigoFuego.java
+//Fecha: 11/05/2019
 
 import java.awt.Graphics;
 import java.awt.Image;

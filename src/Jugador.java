@@ -1,3 +1,8 @@
+//Autor 1: Erick Alfonso Montán López. A01379766
+//Autor 2: Lui Ángel Barriga Chávez. A01633169
+//Nombre de la clase: Jugador.java
+//Fecha: 11/05/2019
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -37,10 +42,5 @@ public class Jugador {
 			g.drawImage(this.player,this.pX-45, 500, 150, 120,null);
 		}
 	}
-	public Rectangle getBounds() {
-		return new Rectangle(this.pX-35,500,50,50);
-	}
 	
-
-
 }

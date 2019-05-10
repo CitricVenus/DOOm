@@ -1,3 +1,8 @@
+//Autor 1: Erick Alfonso Montán López. A01379766
+//Autor 2: Lui Ángel Barriga Chávez. A01633169
+//Nombre de la clase: HUD.java
+//Fecha: 11/05/2019
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -9,10 +14,9 @@ public class HUD {
 	public NIvel2 lvl2;
 	public int vida,score,nivel,vidas,balas;
 	public HUD() {
-		this.vida=100;
 		this.score=0;
 		this.nivel=1;
-		this.vidas=3;
+
 		this.balas=7;
 
 	}
@@ -20,28 +24,10 @@ public class HUD {
 
 		g.setColor(Color.WHITE);
 		g.drawString(""+this.score, 200, 687);
-		g.drawString(""+this.vidas, 425, 687);
-		g.drawString(this.vida+" ", 660, 687);
-		g.drawString("Balas:"+this.balas, 0, 600);
+		g.drawString(""+this.balas, 700, 687);
 		g.drawString(""+this.nivel, 50, 687);
 	}
-	public void sinMunicion() {
-		if(this.balas==0) {
-		System.out.println("Game Over");
-		}
-	}
-	public void cambiaNivel() {
-		
-	}
 	
-	public void Score() {
-		
-	}
-	public void Vidas() {
-		
-	}
 	
-	public void Vida() {
-		
-	}
+	
 }
