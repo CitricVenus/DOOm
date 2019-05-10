@@ -12,7 +12,7 @@ import javax.swing.SwingUtilities;
 public class Ventana extends JFrame{
 	private Container contenedorGame=getContentPane();
 	public Ventana() {
-		super("Juego");
+		super("Doom Shoot");
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
