@@ -31,34 +31,16 @@ public class Jugador {
 		if(disparo) {
 			g.drawImage(this.player,this.pX-45, 500, 120, 120,null);
 			g.drawImage(this.shoot,this.pX-40, 430, 110, 110,null); 
-			this.disparo=false;
-			
-			
+			this.disparo=false;	
 		}
 		else {
 			g.drawImage(this.player,this.pX-45, 500, 150, 120,null);
 		}
-		if(this.escudoAct) {
-			g.setColor(Color.GREEN);
-			g.fillRect(this.eX, this.eY, 220, 25);
-		}
 	}
-	
-
 	public Rectangle getBounds() {
 		return new Rectangle(this.pX-35,500,50,50);
 	}
 	
-	public void contEscudo() {
-		System.out.println("Hola");
-		if(this.escudoAct) {
-			this.contadorEsc++;
-			if(contadorEsc>=5) {
-				this.escudoAct=false;
-				this.contadorEsc=0;
-			}
-		}
-		
-	}
+
 
 }

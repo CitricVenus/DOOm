@@ -12,30 +12,30 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class Controles extends JPanel implements MouseMotionListener, MouseListener,KeyListener,Runnable{
-	public Image hud,fondo;
-	public boolean cambionivel;
-	public int mX,mY,pX,bala,clickX,clickY,nivelactual,menosenemigos,scorectrl;
+public class NIvel2 extends JPanel implements MouseMotionListener, MouseListener,KeyListener,Runnable{
+	public Image hud,map2;
+	public int mX,mY,pX,bala,clickX,clickY,contador,nivelactual,menosenemigosdem;
 	public Thread hilo=new Thread(this);
 	public HUD Hud;
-	public EnemigoCalavera enemigos;
+	public Controles ctrl;
+	public EnemigoDemonio enemigodem;
 	public Scope scope;
+	public Nivel3 lvl3;
 	public Jugador jugador;
-	public EnemigoCalavera []enemigocalav;
+	public EnemigoDemonio []enemigosdem;
 	public Ventana play;
 
 
-	public Controles (Ventana play) {
+
+	public NIvel2 (Ventana play) {
 		this.play=play;
 		this.setPreferredSize(new Dimension(800,700));
-		this.scorectrl=0;
 		this.scope=new Scope();
-		this.menosenemigos=4;
-		this.nivelactual=1;
-		this.cambionivel=false;
-		this.enemigos=new EnemigoCalavera();
+		this.menosenemigosdem=6;
+		this.nivelactual=2;
+		this.enemigodem=new EnemigoDemonio();
 		this.hud=new ImageIcon("Hud.png").getImage();
-		this.fondo=new ImageIcon("Fondo.jpg").getImage();
+		this.map2=new ImageIcon("map2.jpg").getImage();
 		this.pX=400;
 		this.Hud=new HUD();
 		this.jugador=new Jugador();
@@ -43,22 +43,22 @@ public class Controles extends JPanel implements MouseMotionListener, MouseListe
 		addMouseListener(this);
 		addKeyListener(this);
 
-		this.enemigocalav=new EnemigoCalavera[4];
-		for (int i=0;i<this.enemigocalav.length;i++) {
-			this.enemigocalav[i]=new EnemigoCalavera();
+		this.enemigosdem=new EnemigoDemonio[6];
+		for (int i=0;i<this.enemigosdem.length;i++) {
+			this.enemigosdem[i]=new EnemigoDemonio();
 		}
 		hilo.start();
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		this.Hud.score=+this.Hud.score;
-
-		g.drawImage(this.fondo, 0, 0, this.getWidth(),this.getHeight(),this);
+		this.Hud.nivel=2;
+		g.drawImage(this.map2, 0, 0, this.getWidth(),this.getHeight(),this);
 		this.jugador.pintaJugador(g);
 		g.drawImage(this.hud,1, 610, 800, 90,this );
 		g.setFont( new Font( "Tahoma", Font.BOLD, 46 ) );
-		for(int i=0;i<this.enemigocalav.length;i++) {
-			this.enemigocalav[i].pintaEnemigo(g);
+		for(int i=0;i<this.enemigosdem.length;i++) {
+			this.enemigosdem[i].pintaEnemigoDem(g);
 			
 		}
 		this.Hud.pintaHUD(g);
@@ -76,35 +76,27 @@ public class Controles extends JPanel implements MouseMotionListener, MouseListe
 			this.jugador.disparo=true;
 			this.Hud.balas--;
 			this.repaint();
-			System.out.println(this.menosenemigos);
+			System.out.println(this.menosenemigosdem);
 		}
-
-		for(int i=0;i<this.enemigocalav.length;i++) {
-			if((this.clickX>=this.enemigocalav[i].eX)&&(this.clickX<=this.enemigocalav[i].eX+50)
-					&&(this.clickY>=this.enemigocalav[i].eY)&&(this.clickY<=this.enemigocalav[i].eY+50)) {
-					this.menosenemigos--;
-						if(this.Hud.balas==0 && this.menosenemigos>=1) {
-							System.out.println("Game Over");
+		for(int i=0;i<this.enemigosdem.length;i++) {
+			if((this.clickX>=this.enemigosdem[i].demX)&&(this.clickX<=this.enemigosdem[i].demX+50)
+					&&(this.clickY>=this.enemigosdem[i].demY)&&(this.clickY<=this.enemigosdem[i].demY+50)) {
+					this.menosenemigosdem--;
+						if(this.Hud.balas<=0 && this.menosenemigosdem>=1) {
+						System.out.println("Game Over");
 						}
-						else if(this.Hud.balas>=0 && this.menosenemigos==0 ){
+						 if(this.Hud.balas>=0 && this.menosenemigosdem==0){
 						System.out.println("Siguiente nivel");
-						this.cambionivel=true;
-						System.out.println(this.cambionivel);
-						NIvel2 lvl2=new NIvel2(this.play);
-						this.play.setPanel(lvl2);
-						}
+						Nivel3 lvl3=new Nivel3(this.play);
+						this.play.setPanel(lvl3);
+							}
+				if(!this.enemigosdem[i].aciertodem) {
 					
-				if(!this.enemigocalav[i].acierto) {
-					this.Hud.score=this.Hud.score+10;
-					
-					this.enemigocalav[i].acierto=true;
+					this.Hud.score=40+this.Hud.score+15;
+					this.enemigosdem[i].aciertodem=true;
 					
 				}
-				
 				this.repaint();
-				 
-			}
-			else {
 				
 			}
 		}
@@ -127,8 +119,8 @@ public class Controles extends JPanel implements MouseMotionListener, MouseListe
 		 try {
 			 while(true) {
 				 this.jugador.escudoAct=true;
-				for(int i=0;i<this.enemigocalav.length;i++) {
-					this.enemigocalav[i].mueveEnemigo();
+				for(int i=0;i<this.enemigosdem.length;i++) {
+					this.enemigosdem[i].mueveEnemigoDEM();
 					Thread.sleep(2);
 					this.repaint();
 				}
@@ -159,4 +151,3 @@ public class Controles extends JPanel implements MouseMotionListener, MouseListe
 	public void mouseDragged(MouseEvent e) {}
 }
 	
-
